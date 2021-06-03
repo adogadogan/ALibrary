@@ -15,12 +15,12 @@ public class Genre {
     private String name;
     private String bookDescription;
 
+    public Genre() {
+    }
+
     public Genre(String name, String bookDescription) {
         this.name = name;
         this.bookDescription = bookDescription;
-    }
-
-    public Genre() {
     }
 
     public int getId() {

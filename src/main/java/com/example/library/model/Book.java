@@ -19,14 +19,13 @@ public class Book {
     @OneToOne(cascade = CascadeType.ALL)
     private Genre genre;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     @JoinColumn(name="publisher_id")
     private Publisher publisher;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     @JoinTable(name="book_author",  joinColumns = @JoinColumn(name="book_id"), inverseJoinColumns =@JoinColumn(name="author_id"))
     private Set<Author> authors = new HashSet<>() ;
-
 
     public Book(int isbn, String title, int pageCount) {
         this.isbn = isbn;

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="customer")
+@Table(name="users")
 public class User {
 
     @Id
@@ -15,11 +15,14 @@ public class User {
 
     private String name ;
     private String surname;
+
+    @Column(unique = true)
     private String email ;
 
+    /* deprecated due to problems of bidirectional relationship
     @OneToMany(mappedBy = "user")
     private Set<Borrow> borrowedBooks = new HashSet<>();
-
+    */
     public User(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;

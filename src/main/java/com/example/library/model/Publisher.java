@@ -11,8 +11,10 @@ public class Publisher {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "publisher")
-    private Set<Book> books = new HashSet<>();
+    /*
+    @OneToMany(mappedBy = "publisher", orphanRemoval = true)
+    private Set<Book> books = new HashSet<>(); // maybe using uni directional is easier ?
+    */
 
     public Publisher() {
     }
@@ -35,13 +37,5 @@ public class Publisher {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(Set<Book> books) {
-        this.books = books;
     }
 }

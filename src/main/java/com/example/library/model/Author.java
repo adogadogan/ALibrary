@@ -13,8 +13,10 @@ public class Author {
     private String name;
     private String surname;
 
-    @ManyToMany(mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();
+
+    // causes problems of bidirectional relationship
+    //@ManyToMany(mappedBy = "authors")
+    //private Set<Book> books = new HashSet<>();
 
     public Author(String name, String surname) {
         this.name = name;
@@ -48,11 +50,4 @@ public class Author {
         this.surname = surname;
     }
 
-    public Set<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(Set<Book> books) {
-        this.books = books;
-    }
 }
