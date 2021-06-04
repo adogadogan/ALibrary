@@ -14,6 +14,7 @@ public class Book {
     private int isbn;
 
     private String title;
+
     private int pageCount;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -36,6 +37,14 @@ public class Book {
 
     public Book() {
 
+    }
+
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
     }
 
     public Long getId() {
