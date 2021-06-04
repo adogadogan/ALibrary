@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @OneToOne(mappedBy = "genre")
     private Book book;
@@ -23,11 +23,11 @@ public class Genre {
         this.bookDescription = bookDescription;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

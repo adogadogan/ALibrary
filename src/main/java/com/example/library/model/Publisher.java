@@ -1,20 +1,15 @@
 package com.example.library.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String name;
+    private Long id;
 
-    /*
-    @OneToMany(mappedBy = "publisher", orphanRemoval = true)
-    private Set<Book> books = new HashSet<>(); // maybe using uni directional is easier ?
-    */
+    @Column(unique = true)
+    private String name;
 
     public Publisher() {
     }
@@ -23,11 +18,11 @@ public class Publisher {
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

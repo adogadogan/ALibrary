@@ -8,15 +8,10 @@ import java.util.Set;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     private String name;
     private String surname;
-
-
-    // causes problems of bidirectional relationship
-    //@ManyToMany(mappedBy = "authors")
-    //private Set<Book> books = new HashSet<>();
 
     public Author(String name, String surname) {
         this.name = name;
@@ -26,11 +21,11 @@ public class Author {
     public Author() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

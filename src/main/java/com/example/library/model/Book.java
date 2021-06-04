@@ -24,7 +24,8 @@ public class Book {
     private Publisher publisher;
 
     @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
-    @JoinTable(name="book_author",  joinColumns = @JoinColumn(name="book_id"), inverseJoinColumns =@JoinColumn(name="author_id"))
+    @JoinTable(name="book_author",  joinColumns = @JoinColumn(name="book_id"),
+            inverseJoinColumns =@JoinColumn(name="author_id"))
     private Set<Author> authors = new HashSet<>() ;
 
     public Book(int isbn, String title, int pageCount) {

@@ -2,8 +2,6 @@ package com.example.library.model;
 
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -11,7 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     private String name ;
     private String surname;
@@ -19,10 +17,6 @@ public class User {
     @Column(unique = true)
     private String email ;
 
-    /* deprecated due to problems of bidirectional relationship
-    @OneToMany(mappedBy = "user")
-    private Set<Borrow> borrowedBooks = new HashSet<>();
-    */
     public User(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
@@ -33,11 +27,11 @@ public class User {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,4 +59,13 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

@@ -8,10 +8,10 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade= CascadeType.MERGE) // when the user borrows for the first time, merge is needed
+    @ManyToOne(cascade= CascadeType.MERGE,optional = false) // when the user borrows for the first time, merge is needed
     private User user;
 
-    @OneToOne // if there is no book in repo, then borrow is not possible? else: cascade.Full
+    @OneToOne(optional = false) // if there is no book in repo, then borrow is not possible? else: cascade.Full
     private Book book;
 
     public Borrow() {
