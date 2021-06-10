@@ -40,8 +40,8 @@ public class Genre {
     }
 
     public Book getBook() {
-        return book;
-    }
+        return null;
+    } // CAUSES INF LOOP IF RETURN BOOK ??
 
     public void setBook(Book book) {
         this.book = book;

@@ -11,11 +11,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name ;
+    private String name;
     private String surname;
 
     @Column(unique = true)
-    private String email ;
+    private String email;
 
     public User(String name, String surname, String email) {
         this.name = name;
@@ -24,7 +24,6 @@ public class User {
     }
 
     public User() {
-
     }
 
     public Long getId() {

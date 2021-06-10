@@ -1,7 +1,6 @@
 package com.example.library;
 
 import com.example.library.model.*;
-import com.example.library.repository.*;
 import com.example.library.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,9 +15,9 @@ public class LibraryApplication {
 	}
 
 	@Bean
-	public CommandLineRunner libraryDemo(BookService bookService,
-										 AuthorService authorService, PublisherService publisherService,
-										 BorrowService borrowService, UserService userService){
+	public CommandLineRunner libraryDemo(BookServiceImpl bookServiceImpl,
+										 AuthorServiceImpl authorServiceImpl, PublisherServiceImpl publisherService,
+										 BorrowServiceImpl borrowServiceImpl, UserServiceImpl userServiceImpl){
 
 		return args -> {
 			Book b1 = new Book(123,"titlito11", 14);
@@ -40,13 +39,13 @@ public class LibraryApplication {
 			b2.setGenre(g2);
 			b2.getAuthors().add(a1);
 
-			authorService.save(a1);
-			authorService.save(a2);
+			authorServiceImpl.save(a1);
+			authorServiceImpl.save(a2);
 			publisherService.save(p1);
-			bookService.save(b1);
-			bookService.save(b2);
-			userService.save(u1);
-			userService.save(u2);
+			bookServiceImpl.save(b1);
+			bookServiceImpl.save(b2);
+			userServiceImpl.save(u1);
+			userServiceImpl.save(u2);
 
 			Borrow userBorrows = new Borrow();
 			userBorrows.setUser(u1);
@@ -54,11 +53,12 @@ public class LibraryApplication {
 			Borrow anotherBorrows = new Borrow();
 			anotherBorrows.setUser(u1);
 			anotherBorrows.setBook(b2);
-			borrowService.save(userBorrows);
-			borrowService.save(anotherBorrows);
+			borrowServiceImpl.save(userBorrows);
+			//borrowServiceImpl.save(anotherBorrows);
 
-			User sU = userService.findById(8L);
+			User sU = userServiceImpl.findById(8L);
 			System.out.println(sU);
+
 		};
 
 	}

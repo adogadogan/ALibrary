@@ -1,6 +1,7 @@
 package com.example.library.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Borrow {
@@ -14,7 +15,16 @@ public class Borrow {
     @OneToOne(optional = false) // if there is no book in repo, then borrow is not possible? else: cascade.Full
     private Book book;
 
+    private LocalDateTime borrowDate;
+    private LocalDateTime dueDate;
+    private LocalDateTime returnDate;
+
     public Borrow() {
+    }
+
+    public Borrow(User user, Book book) {
+        this.user = user;
+        this.book = book;
     }
 
     public Long getId() {
@@ -40,8 +50,28 @@ public class Borrow {
     public void setBook(Book book) {
         this.book = book;
     }
-    // borrowDate
-    // returnDate
-    // dueDate
 
+    public LocalDateTime getBorrowDate() {
+        return borrowDate;
+    }
+
+    public void setBorrowDate(LocalDateTime borrowDate) {
+        this.borrowDate = borrowDate;
+    }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public LocalDateTime getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDateTime returnDate) {
+        this.returnDate = returnDate;
+    }
 }

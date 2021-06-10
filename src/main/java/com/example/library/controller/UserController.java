@@ -1,22 +1,22 @@
 package com.example.library.controller;
 
 import com.example.library.model.User;
-import com.example.library.service.IUserService;
+import com.example.library.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping(path="/users")
 public class UserController {
 
-    private IUserService userService;
+    private UserService userService;
 
-    public UserController(IUserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewUser (@RequestParam String name,
+    public  String addNewUser (@RequestParam String name,
                                             @RequestParam String surname,
                                             @RequestParam String email) {
         // @ResponseBody means the returned String is the response, not a view name
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<User> getAllUsers(){
+    public Iterable<User> getAllUsers(){
 
         return userService.findAll();
     }
