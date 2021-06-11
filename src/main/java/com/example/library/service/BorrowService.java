@@ -6,5 +6,8 @@ import com.example.library.model.User;
 
 public interface BorrowService extends CrudService<Borrow,Long> {
 
-    void borrow(User user, Book book);
+    void borrowBook(User user, Book book);
+    Borrow findByUserIdAndBookId(Long userId, Long bookId);
+    void returnBook(Borrow borrow);
+
 }

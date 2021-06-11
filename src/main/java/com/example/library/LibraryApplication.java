@@ -6,8 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
+@EnableSwagger2
 public class LibraryApplication {
 
 	public static void main(String[] args) {
@@ -15,13 +17,13 @@ public class LibraryApplication {
 	}
 
 	@Bean
-	public CommandLineRunner libraryDemo(BookServiceImpl bookServiceImpl,
-										 AuthorServiceImpl authorServiceImpl, PublisherServiceImpl publisherService,
-										 BorrowServiceImpl borrowServiceImpl, UserServiceImpl userServiceImpl){
+	public CommandLineRunner libraryDemo(BookService bookService,
+										 AuthorService authorService, PublisherService publisherService,
+										 BorrowService borrowService, UserService userService){
 
 		return args -> {
-			Book b1 = new Book(123,"titlito11", 14);
-			Book b2 = new Book(456,"titlito22", 141);
+			Book b1 = new Book(123,"titlito11", 5);
+			Book b2 = new Book(456,"titlito22", 1);
 
 			Genre g1 = new Genre("horror","a prety scary book");
 			Genre g2 = new Genre("comdeia","a funny book");
@@ -39,29 +41,24 @@ public class LibraryApplication {
 			b2.setGenre(g2);
 			b2.getAuthors().add(a1);
 
-			authorServiceImpl.save(a1);
-			authorServiceImpl.save(a2);
+			authorService.save(a1);
+			authorService.save(a2);
 			publisherService.save(p1);
-			bookServiceImpl.save(b1);
-			bookServiceImpl.save(b2);
-			userServiceImpl.save(u1);
-			userServiceImpl.save(u2);
+			bookService.save(b1);
+			bookService.save(b2);
+			userService.save(u1);
+			userService.save(u2);
 
-			Borrow userBorrows = new Borrow();
-			userBorrows.setUser(u1);
-			userBorrows.setBook(b1);
-			Borrow anotherBorrows = new Borrow();
-			anotherBorrows.setUser(u1);
-			anotherBorrows.setBook(b2);
-			borrowServiceImpl.save(userBorrows);
-			//borrowServiceImpl.save(anotherBorrows);
+			borrowService.borrowBook(u1,b1);
+			borrowService.borrowBook(u1,b2);
+			borrowService.borrowBook(u2,b1);
 
-			User sU = userServiceImpl.findById(8L);
-			System.out.println(sU);
+			//User sU = userService.findById(8L);
+			System.out.println("UP AND RUNNING..");
+
 
 		};
 
 	}
-
 
 }

@@ -14,8 +14,7 @@ public class Book {
     private int isbn;
 
     private String title;
-
-    private int pageCount;
+    private int count;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Genre genre;
@@ -29,10 +28,10 @@ public class Book {
             inverseJoinColumns =@JoinColumn(name="author_id"))
     private Set<Author> authors = new HashSet<>() ;
 
-    public Book(int isbn, String title, int pageCount) {
+    public Book(int isbn, String title, int count) {
         this.isbn = isbn;
         this.title = title;
-        this.pageCount = pageCount;
+        this.count = count;
     }
 
     public Book() {
@@ -63,12 +62,12 @@ public class Book {
         this.title = title;
     }
 
-    public int getPageCount() {
-        return pageCount;
+    public int getCount() {
+        return count;
     }
 
-    public void setPageCount(int pageCount) {
-        this.pageCount = pageCount;
+    public void setCount(int pageCount) {
+        this.count = pageCount;
     }
 
     public Genre getGenre() {

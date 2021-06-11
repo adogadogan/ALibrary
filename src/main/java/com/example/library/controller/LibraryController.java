@@ -7,10 +7,8 @@ import com.example.library.model.User;
 import com.example.library.service.BookService;
 import com.example.library.service.BorrowService;
 import com.example.library.service.UserService;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -44,10 +42,7 @@ public class LibraryController {
 
     @GetMapping(path="/books/available")
     public List<Book> listAvailableBooks(){
-        // expensive in terms of complexity, could be solved by a column in book entity
-        // TODO
-        // bookService.all - borrowService.all.book
-        return bookService.findAll();
+        return bookService.listAvailableBooks();
     }
 
     @PostMapping(path = "/borrow")
@@ -56,11 +51,32 @@ public class LibraryController {
 
         Book book = bookService.findByIsbn(isbn);
         User user = userService.findById(userId);
-        borrowService.borrow(user,book);
-
-        return "borrowed";
+        if (book.getCount()>0){ // book count table instead of a column ?
+            book.setCount(book.getCount()-1);//Should be handled here, or in borrowService?
+            borrowService.borrowBook(user,book);
+            bookService.save(book);
+            return "borrowed";
+        }
+        else{
+            System.out.println("No available book!");
+            return "no Available Book";
+        }
     }
 
+    @PostMapping(path="/return")
+    public String returnBook(@RequestParam("id") Long userId,
+                             @RequestParam("isbn") int isbn){
+
+        Long bookId = bookService.findByIsbn(isbn).getId();// no type checkk !
+        Borrow borrow = borrowService.findByUserIdAndBookId(userId,bookId);
+        if (borrow != null ){
+            borrowService.returnBook(borrow); // this time, returnBook will handle book.count
+            return "Returned" ;
+        }
+        else{
+            return "No borrow History found" ;
+        }
+    }
 
 }
 

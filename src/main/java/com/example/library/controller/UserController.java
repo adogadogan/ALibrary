@@ -2,7 +2,6 @@ package com.example.library.controller;
 
 import com.example.library.model.User;
 import com.example.library.service.UserService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

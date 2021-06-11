@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface BookRepository extends CrudRepository<Book,Long> {
     Book findFirstByIsbn(int isbn) ;
+
+    List<Book> findByCountGreaterThan(int count);
+
 }

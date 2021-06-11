@@ -45,4 +45,9 @@ public class BookServiceImpl implements BookService {
         // !! NO ERROR CHECK XD
         return bookRepository.findFirstByIsbn(isbn);
     }
+
+    @Override
+    public List<Book> listAvailableBooks() {
+        return bookRepository.findByCountGreaterThan(0);
+    }
 }

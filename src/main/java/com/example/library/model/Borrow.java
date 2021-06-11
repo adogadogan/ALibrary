@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","book_id"})})
 public class Borrow {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,7 +13,7 @@ public class Borrow {
     @ManyToOne(cascade= CascadeType.MERGE,optional = false) // when the user borrows for the first time, merge is needed
     private User user;
 
-    @OneToOne(optional = false) // if there is no book in repo, then borrow is not possible? else: cascade.Full
+    @ManyToOne(optional = false) // if there is no book in repo, then borrow is not possible? else: cascade.Full
     private Book book;
 
     private LocalDateTime borrowDate;
@@ -73,5 +74,15 @@ public class Borrow {
 
     public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Borrow{" +
+                "id=" + id +
+                ", borrowDate=" + borrowDate +
+                ", dueDate=" + dueDate +
+                ", returnDate=" + returnDate +
+                '}';
     }
 }
