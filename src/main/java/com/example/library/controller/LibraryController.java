@@ -7,6 +7,8 @@ import com.example.library.model.User;
 import com.example.library.service.BookService;
 import com.example.library.service.BorrowService;
 import com.example.library.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,27 +27,29 @@ public class LibraryController {
         this.borrowService = borrowService;
     }
 
-    @GetMapping(path="/borrowedBooks")
+
+    @GetMapping(path="/borrows")
+    @ApiOperation(value = "Shows borrowed books",
+    notes = "Provides a list of borrowed books from the library")
     public List<Borrow> listBorrowedBooks(){
        return borrowService.findAll();
     }
 
-    @GetMapping(path="/books/all")
+    @GetMapping(path="/books")
     public List<Book> listAllBooks(){
         return bookService.findAll();
     }
 
-    @GetMapping(path="/users/all")
+    @GetMapping(path="/users")
     public List<User> listAllUsers(){
         return userService.findAll();
     }
 
-    @GetMapping(path="/books/available")
+    @GetMapping(path="/books-available")
     public List<Book> listAvailableBooks(){
         return bookService.listAvailableBooks();
     }
-
-    @PostMapping(path = "/borrow")
+    @PostMapping(path = "/borrow-book")
     public String borrowBook(@RequestParam("id") Long userId,
                              @RequestParam("isbn") int isbn){
 
@@ -54,7 +58,7 @@ public class LibraryController {
         if (book.getCount()>0){ // book count table instead of a column ?
             book.setCount(book.getCount()-1);//Should be handled here, or in borrowService?
             borrowService.borrowBook(user,book);
-            bookService.save(book);
+            bookService.save(book); // may book update is borrowService's job ?
             return "borrowed";
         }
         else{
@@ -63,7 +67,7 @@ public class LibraryController {
         }
     }
 
-    @PostMapping(path="/return")
+    @PostMapping(path="/return-book")
     public String returnBook(@RequestParam("id") Long userId,
                              @RequestParam("isbn") int isbn){
 

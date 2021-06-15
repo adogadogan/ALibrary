@@ -9,9 +9,10 @@ import java.util.List;
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
-    //@Autowired not recommended but possible and we can delete constructor
+    //@Autowired not recommended but possible
     private final AuthorRepository authorRepository;
 
+    // needed for autowiring
     public AuthorServiceImpl(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
