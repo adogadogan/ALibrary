@@ -1,11 +1,13 @@
 package com.example.library.model;
 
+import lombok.Data;
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Publisher {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -13,24 +15,8 @@ public class Publisher {
 
     public Publisher() {
     }
-
     public Publisher(String name) {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
