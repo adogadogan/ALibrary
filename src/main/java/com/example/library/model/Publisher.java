@@ -19,4 +19,8 @@ public class Publisher {
         this.name = name;
     }
 
+    public Publisher(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

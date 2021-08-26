@@ -33,4 +33,8 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping
+    public User getUser(@RequestParam Long id){
+        return userService.findById(id);
+    }
 }

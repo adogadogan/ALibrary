@@ -4,7 +4,7 @@ import com.example.library.model.Book;
 import com.example.library.repository.BookRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.cache.annotation.Cacheable;
 import java.util.List;
 
 @Service
@@ -23,7 +23,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Cacheable(value="itemCache",unless = "#result.isbn!=123")
     public Book findById(Long aLong) {
+        System.out.println("Request: "+aLong);
         return bookRepository.findById(aLong).orElse(null);
     }
 

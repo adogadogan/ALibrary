@@ -1,6 +1,7 @@
 package com.example.library.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ public class Book {
     private int count;
     private String genre;
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name="publisher_id")
     private Publisher publisher;
 
