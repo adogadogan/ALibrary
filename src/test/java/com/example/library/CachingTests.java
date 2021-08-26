@@ -51,9 +51,9 @@ public class CachingTests {
     private PublisherRepository mockPublisherRepository;
 
     @Autowired
-    private BookServiceImpl bookService;
+    private BookService bookService;
     @Autowired
-    private PublisherServiceImpl publisherService;
+    private PublisherService publisherService;
     @Autowired
     private CacheManager cacheManager;
 
@@ -76,14 +76,12 @@ public class CachingTests {
         long afterHit = Instant.now().toEpochMilli();
         Publisher publisherCacheHit2 = publisherService.findById(13L);
         long afterHit2 = Instant.now().toEpochMilli();
-        Publisher publisherCacheMiss2 = publisherService.findById(14L);
-        long afterMiss2 = Instant.now().toEpochMilli();
-
 
         assertThat(publisherCacheMiss).isEqualTo(aPublisher);
         assertThat(publisherCacheHit).isEqualTo(aPublisher);
+        assertThat(publisherCacheHit2).isEqualTo(aPublisher);
 
-        verify(mockPublisherRepository,times(3)).findById(13L);
+        verify(mockPublisherRepository,times(1)).findById(13L);
 
     }
 
