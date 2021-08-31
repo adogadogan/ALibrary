@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Optional;
 
+import static org.assertj.core.api.InstanceOfAssertFactories.optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -82,6 +83,32 @@ public class CachingTests {
         assertThat(publisherCacheHit2).isEqualTo(aPublisher);
 
         verify(mockPublisherRepository,times(1)).findById(13L);
+
+    }
+
+    @Test
+    void cacheTest2(){
+        Book aBook = new Book(1L,123,"a book title",3,"a genre");
+        Book bBook = new Book(2L,456,"b book title",2,"b genre");
+
+        given(mockBookRepository.findById(1L))
+                .willReturn(Optional.of(aBook));
+        given(mockBookRepository.findById(2L))
+                .willReturn(Optional.of(bBook));
+
+        Book aBookMiss = bookService.findById(1L);
+        Book aBookHit = bookService.findById(1L);
+
+        Book bBookMiss = bookService.findById(2L);
+        Book bBookMissAgain = bookService.findById(2L);
+
+        assertThat(aBookMiss).isEqualTo(aBook);
+        assertThat(aBookHit).isEqualTo(aBook);
+        assertThat(bBookMiss).isEqualTo(bBook);
+        assertThat(bBookMissAgain).isEqualTo(bBook);
+
+        verify(mockBookRepository,times(1)).findById(1L);
+        verify(mockBookRepository,times(2)).findById(2L);
 
     }
 

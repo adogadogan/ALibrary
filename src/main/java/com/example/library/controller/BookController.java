@@ -16,6 +16,12 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @GetMapping(path = "/get")
+    public Book getBook(@RequestParam Long id){
+        return bookService.findById(id);
+    }
+
+
     @PostMapping(path="/add")
     public String addNewBook(@RequestBody Book book){
         bookService.save(book);

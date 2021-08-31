@@ -22,7 +22,7 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    @Cacheable(value="itemCache")
+    @Cacheable(value="itemCache",key="#p0")
     public Publisher findById(Long aLong) {
         return publisherRepository.findById(aLong).orElse(null);
     }

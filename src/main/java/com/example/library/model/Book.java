@@ -4,12 +4,13 @@ import lombok.Data;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
-public class Book {
+public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,5 +37,13 @@ public class Book {
         this.count = count;
     }
     public Book() {
+    }
+
+    public Book(Long id, int isbn, String title, int count, String genre) {
+        this.id = id;
+        this.isbn = isbn;
+        this.title = title;
+        this.count = count;
+        this.genre = genre;
     }
 }

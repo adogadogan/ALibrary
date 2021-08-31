@@ -2,10 +2,11 @@ package com.example.library.model;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
-public class Publisher {
+public class Publisher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

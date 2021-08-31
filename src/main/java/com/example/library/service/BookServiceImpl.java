@@ -23,7 +23,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Cacheable(value="itemCache",unless = "#result.isbn!=123")
+    @Cacheable(value="itemCache",key="#p0",unless = "#result.count < 3")
     public Book findById(Long aLong) {
         System.out.println("Request: "+aLong);
         return bookRepository.findById(aLong).orElse(null);
